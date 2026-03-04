@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
 # The @pytest.fixture decorator tells Pytest this is a setup/teardown function.
 # scope="function" means it will open a fresh browser for EVERY individual test.
@@ -22,9 +23,15 @@ def selenium_driver():
     # Navigate to your local Flask app
     driver.get("http://127.0.0.1:5000")
 
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
+def get_driver():
+    chrome_options = Options()
+    # These three lines are the "Cloud Secret Sauce"
+    chrome_options.add_argument("--headless") 
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    driver = webdriver.Chrome(options=chrome_options)
+    return driver
 
     # ==========================================
     # 2. THE HANDOFF
