@@ -22,6 +22,10 @@ def selenium_driver():
     # Navigate to your local Flask app
     driver.get("http://127.0.0.1:5000")
 
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+
     # ==========================================
     # 2. THE HANDOFF
     # ==========================================
