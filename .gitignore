@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Database & Instance
+instance/
+*.db
+
+# Test Reports
+.pytest_cache
+.playwright/
+test-results/

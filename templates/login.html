@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA Bank - Login</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #1e1e1e; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.6); width: 320px; text-align: center; }
+        h2 { margin-top: 0; color: #00d26a; }
+        input { width: 90%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #333; border-radius: 6px; background-color: #2a2a2a; color: white; }
+        button { width: 100%; padding: 12px; background-color: #00d26a; color: #121212; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #00b359; }
+        .error { color: #ff4d4d; margin-top: 15px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>QA Bank Login</h2>
+        <form method="POST" action="/">
+            <label style="display:block; text-align:left; margin-left: 5%;">Username</label>
+            <input type="text" name="username" id="username" required>
+            
+            <label style="display:block; text-align:left; margin-left: 5%;">Password</label>
+            <input type="password" name="password" id="password" required>
+            
+            <button type="submit" id="login-btn">Secure Login</button>
+        </form>
+        {% if error %} <div class="error" id="error-msg">{{ error }}</div> {% endif %}
+    </div>
+</body>
+</html>

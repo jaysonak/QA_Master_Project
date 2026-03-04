@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA Bank - History</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding-top: 50px; margin: 0; }
+        .container { background-color: #1e1e1e; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.6); width: 600px; text-align: center; }
+        h2 { color: #00d26a; margin-bottom: 5px; }
+        .nav-links { margin-bottom: 25px; font-size: 14px; }
+        .nav-links a { color: #888; text-decoration: none; transition: color 0.3s; }
+        .nav-links a:hover { color: #00d26a; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #2a2a2a; border-radius: 6px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+        th { background-color: #333; color: #00d26a; font-weight: normal; }
+        tr:hover { background-color: #3a3a3a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Transaction Ledger</h2>
+        <div class="nav-links">
+            <a href="/dashboard" id="link-dashboard">← Back to Dashboard</a>
+        </div>
+        
+        <table id="transactions-table">
+            <tr>
+                <th>Txn ID</th>
+                <th>Sent (USD)</th>
+                <th>Currency</th>
+                <th>Received Amount</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>#{{ tx.id }}</td>
+                <td>${{ tx.amount_usd }}</td>
+                <td>{{ tx.target_currency }}</td>
+                <td style="color: #00d26a; font-weight: bold;">{{ tx.converted_amount }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

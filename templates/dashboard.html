@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA Bank - Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding-top: 50px; margin: 0; }
+        .container { background-color: #1e1e1e; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.6); width: 400px; text-align: center; }
+        h2 { color: #00d26a; margin-bottom: 5px; }
+        .nav-links { margin-bottom: 25px; font-size: 14px; }
+        .nav-links a { color: #888; text-decoration: none; margin: 0 10px; transition: color 0.3s; }
+        .nav-links a:hover { color: #00d26a; }
+        input, select { width: 90%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #333; border-radius: 6px; background-color: #2a2a2a; color: white; font-size: 16px; }
+        button { width: 100%; padding: 12px; background-color: #00d26a; color: #121212; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #00b359; }
+        .success { color: #00d26a; margin-top: 20px; font-weight: bold; background: rgba(0, 210, 106, 0.1); padding: 10px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Global Transfer</h2>
+        <div class="nav-links">
+            <a href="/history" id="link-history">Transaction History</a> | 
+            <a href="/logout" id="link-logout">Logout</a>
+        </div>
+        
+        <form method="POST" action="/dashboard">
+            <label style="display:block; text-align:left; margin-left: 5%;">Amount (USD)</label>
+            <input type="number" name="amount" id="amount" placeholder="e.g. 100" required>
+            
+            <label style="display:block; text-align:left; margin-left: 5%;">Target Currency</label>
+            <select name="currency" id="currency">
+                <option value="EUR">Euro (EUR)</option>
+                <option value="GBP">British Pound (GBP)</option>
+                <option value="GHS">Ghanaian Cedi (GHS)</option>
+            </select>
+            
+            <button type="submit" id="transfer-btn">Execute Transfer</button>
+        </form>
+
+        {% if message %} 
+            <div class="success" id="success-msg">{{ message }}</div> 
+        {% endif %}
+    </div>
+</body>
+</html>
