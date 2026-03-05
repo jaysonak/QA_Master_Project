@@ -11,7 +11,7 @@ class DashboardPage:
         self.transfer_button = (By.ID, "transfer-btn")
         self.success_message = (By.ID, "success-msg")
 
-    def perform_transfer(self, amount, currency_code):
+    def perform_transfer(self, amount, currency):
         wait = WebDriverWait(self.driver, 10)
         # Wait for the amount field to be interactable
         amount_field = wait.until(EC.element_to_be_clickable(self.amount_field))
