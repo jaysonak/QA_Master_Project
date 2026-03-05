@@ -12,10 +12,12 @@ class DashboardPage:
         self.success_message = (By.ID, "success-msg")
 
     def perform_transfer(self, amount, currency_code):
-        self.driver.find_element(*self.amount_field).send_keys(amount)
-        # Select from dropdown [cite: 14]
-        dropdown = Select(self.driver.find_element(*self.currency_dropdown))
-        dropdown.select_by_value(currency_code)
+        wait = WebDriverWait(self.driver, 10)
+        # Wait for the amount field to be interactable
+        amount_field = wait.until(EC.element_to_be_clickable(self.amount_field))
+        
+        amount_field.send_keys(amount)
+        self.driver.find_element(*self.currency_dropdown).send_keys(currency)
         self.driver.find_element(*self.transfer_button).click()
 
     def get_success_text(self):
