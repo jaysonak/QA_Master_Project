@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage:
     def __init__(self, driver):
@@ -16,4 +18,8 @@ class LoginPage:
         self.driver.find_element(*self.login_button).click()
 
     def get_error_text(self):
-        return self.driver.find_element(*self.error_message).text
+        # Tell Selenium to wait up to 5 seconds for the error message to appear
+        wait = WebDriverWait(self.driver, 5)
+        element = wait.until(EC.visibility_of_element_located(self.error_message))
+
+        return element.text
