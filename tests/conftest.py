@@ -13,6 +13,9 @@ def selenium_driver():
     chrome_options.add_argument("--headless") 
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+
+    # ADD THIS LINE: Force a standard desktop resolution
+    chrome_options.add_argument("--window-size=1920,1080")
     
     # 2. INITIALIZE THE DRIVER
     # This automatically handles the ChromeDriver download

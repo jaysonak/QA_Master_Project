@@ -10,6 +10,7 @@ def test_successful_login(selenium_driver):
     """Test that a user can log in with valid credentials"""
 
     #1. ARRANGE: Load the Login Page Object
+    selenium_driver.get("http://127.0.0.1:5000")
     login_page = LoginPage(selenium_driver)
 
     # 2. ACT: Use the action we defined in the POM
@@ -21,7 +22,7 @@ def test_successful_login(selenium_driver):
 
 def test_invalid_login(selenium_driver):
     """Test that bad credentials throw an error"""
-
+    selenium_driver.get("http://127.0.0.1:5000")
     login_page = LoginPage(selenium_driver)
     login_page.login("wrong_user", "bad_password")
 
@@ -34,6 +35,7 @@ def test_currency_transfer(selenium_driver):
     """Test the Fintech transfer form"""
     
     # Prerequisite: We must log in first to see the dashboard
+    selenium_driver.get("http://127.0.0.1:5000")
     login_page = LoginPage(selenium_driver)
     login_page = login_page.login("qa_user", "password123")
 

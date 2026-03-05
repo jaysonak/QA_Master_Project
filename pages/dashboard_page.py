@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class DashboardPage:
     def __init__(self, driver):
@@ -17,4 +19,8 @@ class DashboardPage:
         self.driver.find_element(*self.transfer_button).click()
 
     def get_success_text(self):
-        return self.driver.find_element(*self.success_message).text
+        # Tell Selenium to wait up to 5 seconds for the element to become visible
+        wait = WebDriverWait(self.driver, 5)
+        element = wait.until(EC.visibility_of_element_located(self.success_message))
+        
+        return element.text
