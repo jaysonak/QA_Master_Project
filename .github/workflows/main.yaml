@@ -12,10 +12,30 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: |
-          pip install pytest pytest-playwright selenium flask flask-sqlalchemy requests webdriver-manager
+          pip install pytest pytest-playwright selenium flask flask-sqlalchemy requests webdriver-manager pytest-html
           playwright install --with-deps chromium
       - name: Run Tests
         run: |
           python app.py &
           sleep 10
-          python -m pytest tests/ -v
+          # The --html flag creates the report; --self-contained-html puts CSS/Images inside one file
+          python -m pytest tests/ -v --html=report.html --self-contained-html
+
+      # NEW: Artifact Step
+      - name: Upload Screenshots on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-screenshots
+          path: screenshots/
+          retention-days: 7
+
+      - name: Upload QA Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-qa-report
+          path: |
+            report.html
+            screenshots/
+          retention-days: 7

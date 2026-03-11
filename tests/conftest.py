@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+import os
+from datetime import datetime
 
 @pytest.fixture(scope="function")
 def selenium_driver():
@@ -27,3 +29,23 @@ def selenium_driver():
     
     # 4. TEARDOWN (Runs after the test)
     driver.quit()
+
+    # Capture screenshot
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_runtest_makereport(item, call):
+        # execute all other hooks to obtain the report object
+        outcome = yield
+        rep = outcome.get_result()
+
+        # we only look at actual test failures (not setup/teardown)
+        if rep.when == "call" and rep.failed:
+            mode = "a" if os.path.exists("failures") else "w"
+            # Create a failures folder if it doesn't exist
+            if not os.path.exists("screenshots"):
+                os.makedirs("screenshots")
+            
+            # Find the driver fixture in the test
+            driver = item.funcargs.get("selenium_driver")
+            if driver:
+                screenshot_name = f"screenshots/fail_{item.name}_{datetime.now().strftime('%H%M%S')}.png"
+                driver.save_screenshot(screenshot_name)
